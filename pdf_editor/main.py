@@ -30,6 +30,8 @@ if __name__ == "__main__":
         file_backup_service.create()
         pdf_editor.run()
         file_backup_service.remove()
+
+        dialog_manager.show_message(message_type=MessageType.SUCCESS, message="Сторінки замінено")
     except Exception as exception:
         dialog_manager.show_message(
             message_type=MessageType.ERROR,
