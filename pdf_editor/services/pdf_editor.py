@@ -55,6 +55,7 @@ class PDFEditor:
         if any(page > len(document_reader.pages) for page in self._page_numbers_to_replace):
             raise Exception('Invalid page number')
         if document_max_pages[self._document_type] != len(document_reader.pages):
+            # TODO: add logic for confirmation message
             pass
 
         writer = PdfWriter()
