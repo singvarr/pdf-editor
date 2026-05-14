@@ -3,26 +3,21 @@ from pathlib import Path
 
 from pypdf import PdfReader, PdfWriter
 
-from pdf_editor.models.document_type import DocumentType, document_max_pages
-from pdf_editor.models.pages_replacement import PagesReplacement
+from pdf_editor.models.document_type import document_max_pages
+from pdf_editor.models.pages_replacement_input import PagesReplacementInput
 
 
 class PDFEditor:
-    def __init__(
-        self,
-        assets_path: str,
-        person_with_tin: str,
-        pages_replacement: PagesReplacement,
-        document_type: DocumentType,
-    ):
-        self._document_type = document_type
-        self._folder_path = Path(assets_path, person_with_tin)
-        self._folder_name = person_with_tin
+    def __init__(self, pages_replacement_input: PagesReplacementInput, pages_replacement_file_path: str):
+        self._document_type = pages_replacement_input.document_type
+        self._folder_path = Path(
+            pages_replacement_input.assets_path,
+            pages_replacement_input.person_with_tin,
+        )
+        self._folder_name = pages_replacement_input.person_with_tin
 
-        self._replacement_path = pages_replacement.path
-        self._page_numbers_to_replace = [
-            int(page.strip()) for page in pages_replacement.pages.split(',')
-        ]
+        self._pages_replacement_file_path = pages_replacement_file_path
+        self._page_numbers_to_replace = pages_replacement_input.page_numbers_to_replace
 
     @property
     def document_path(self) -> str:
@@ -37,7 +32,7 @@ class PDFEditor:
             raise Exception(f'Folder {self._folder_path} doesn\'t exist')
         if not os.path.exists(self.document_path):
             raise Exception(f'{self._document_type} {self.document_path} not found in folder')
-        if not os.path.exists(self._replacement_path):
+        if not os.path.exists(self._pages_replacement_file_path):
             raise Exception('Replacement file wasn\'t found')
 
         are_all_page_numbers_valid = any(
@@ -50,7 +45,7 @@ class PDFEditor:
 
     def _replace_pages(self):
         document_reader = PdfReader(self.document_path)
-        replacement_reader = PdfReader(self._replacement_path)
+        replacement_reader = PdfReader(self._pages_replacement_file_path)
 
         if len(replacement_reader.pages) != len(self._page_numbers_to_replace):
             raise Exception('Replacement has different number of pages than requested')
