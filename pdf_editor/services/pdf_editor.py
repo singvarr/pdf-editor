@@ -65,7 +65,7 @@ class PDFEditor:
             else:
                 writer.add_page(page)
 
-        with open("output.pdf", "wb") as file:
+        with open(self.document_path, "wb") as file:
             writer.write(file)
 
     def run(self):
