@@ -8,7 +8,11 @@ from pdf_editor.models.pages_replacement_input import PagesReplacementInput
 
 
 class PDFEditor:
-    def __init__(self, pages_replacement_input: PagesReplacementInput, pages_replacement_file_path: str):
+    def __init__(
+        self,
+        pages_replacement_input: PagesReplacementInput,
+        pages_replacement_file_path: str,
+    ):
         self._document_type = pages_replacement_input.document_type
         self._folder_path = Path(
             pages_replacement_input.assets_path,
