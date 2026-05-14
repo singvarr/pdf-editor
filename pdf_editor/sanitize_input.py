@@ -4,8 +4,10 @@ import os
 from pdf_editor.models.pages_replacement_input import PagesReplacementInput
 
 
+REQUIRED_CLI_ARGS_COUNT = 3
+
 def sanitize_input() -> PagesReplacementInput:
-    if len(sys.argv) != 3:
+    if len(sys.argv) != REQUIRED_CLI_ARGS_COUNT:
         raise Exception(f"Invalid number of CLI arguments, required 2, instead got {len(sys.argv)}")
 
     try:
