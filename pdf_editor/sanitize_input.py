@@ -12,7 +12,7 @@ def sanitize_input() -> PagesReplacementInput:
 
     try:
         pages_input = sys.argv[1]
-        page_numbers_to_replace = [int(page.strip()) for page in pages_input.pages.split(',')]
+        page_numbers_to_replace = [int(page.strip()) for page in pages_input.split(',')]
     except Exception:
         raise Exception(f'Failed to parse page numbers')
 
