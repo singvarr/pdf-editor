@@ -26,6 +26,13 @@ class PDFEditor:
         return self._folder_path / document_name
 
     def _validate_input(self):
+        are_all_page_numbers_valid = any(
+            not isinstance(page_number, int) or page_number < 0
+            for page_number in self._page_numbers_to_replace
+        )
+
+        if are_all_page_numbers_valid:
+            raise Exception('All page numbers should be positive integers')
         if not len(self._page_numbers_to_replace):
             raise Exception('No page numbers for replacement specified')
         if not os.path.exists(self._folder_path):
@@ -34,14 +41,6 @@ class PDFEditor:
             raise Exception(f'{self._document_type} {self.document_path} not found in folder')
         if not os.path.exists(self._pages_replacement_file_path):
             raise Exception('Replacement file wasn\'t found')
-
-        are_all_page_numbers_valid = any(
-            not isinstance(page_number, int) or page_number < 0
-            for page_number in self._page_numbers_to_replace
-        )
-
-        if are_all_page_numbers_valid:
-            raise Exception('All page numbers should be positive integers')
 
     def _replace_pages(self):
         document_reader = PdfReader(self.document_path)
