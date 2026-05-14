@@ -9,9 +9,8 @@ class DialogManager:
         root.withdraw()
 
     def show_replacement_file_selection(self):
-        file_path = filedialog.asksaveasfilename(
+        file_path = filedialog.askopenfilename(
             title="Оберіть джерело заміни",
-            defaultextension=".pdf",
             filetypes=[("PDF files", "*.pdf")]
         )
 
