@@ -5,6 +5,7 @@ from pypdf import PdfReader, PdfWriter
 
 from pdf_editor.models.document_type import document_max_pages
 from pdf_editor.models.pages_replacement_input import PagesReplacementInput
+from pdf_editor.services.dialog_manager import DialogManager
 
 
 class PDFEditor:
@@ -12,6 +13,7 @@ class PDFEditor:
         self,
         pages_replacement_input: PagesReplacementInput,
         pages_replacement_file_path: str,
+        dialog_manager: DialogManager,
     ):
         self._document_type = pages_replacement_input.document_type
         self._folder_path = Path(
@@ -22,6 +24,8 @@ class PDFEditor:
 
         self._pages_replacement_file_path = pages_replacement_file_path
         self._page_numbers_to_replace = pages_replacement_input.page_numbers_to_replace
+
+        self._dialog_manager = dialog_manager
 
     @property
     def document_path(self) -> str:
@@ -55,8 +59,10 @@ class PDFEditor:
         if any(page > len(document_reader.pages) for page in self._page_numbers_to_replace):
             raise Exception('Invalid page number')
         if document_max_pages[self._document_type] != len(document_reader.pages):
-            # TODO: add logic for confirmation message
-            pass
+            is_edit_confirmed = self._dialog_manager.ask_confirm_document_edit()
+
+            if not is_edit_confirmed:
+                raise Exception("Edit of document with different amount of pages is not confirmed")
 
         writer = PdfWriter()
         page_number_in_replacement = 0

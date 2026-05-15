@@ -16,6 +16,12 @@ class DialogManager:
 
         return file_path
 
+    def ask_confirm_document_edit(self) -> bool:
+        return messagebox.askyesno(
+            title="Підтвердити редагування",
+            message="Документ має іншу кількість сторінок",
+        )
+
     def show_message(self, message_type: str, message: str):
         match message_type:
             case MessageType.ERROR:

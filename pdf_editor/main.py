@@ -24,6 +24,7 @@ if __name__ == "__main__":
         pdf_editor = PDFEditor(
             pages_replacement_file_path=pages_replacement_file_path,
             pages_replacement_input=sanitized_input,
+            dialog_manager=dialog_manager,
         )
         file_backup_service = FileBackupService(file_path=pdf_editor.document_path)
 
