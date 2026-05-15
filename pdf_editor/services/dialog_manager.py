@@ -19,7 +19,7 @@ class DialogManager:
     def ask_confirm_document_edit(self) -> bool:
         return messagebox.askyesno(
             title="Підтвердити редагування",
-            message="Документ має іншу кількість сторінок",
+            message="Документ має нестандартну кількість сторінок",
         )
 
     def show_message(self, message_type: str, message: str):
