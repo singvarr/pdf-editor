@@ -4,5 +4,5 @@ dist
 Lib
 Scripts
 .env
-main.spec
+*.spec
 __pycache__
