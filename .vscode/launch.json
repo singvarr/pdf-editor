@@ -10,12 +10,7 @@
       "request": "launch",
       "module": "pdf_editor.main",
       "cwd": "${workspaceFolder}",
-      "justMyCode": false,
-      "variablePresentation": {
-        "all": "hide",
-        "protected": "hide",
-        "special": "hide"
-      }
+      "justMyCode": false
     }
   ]
 }
