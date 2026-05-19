@@ -4,8 +4,8 @@ from pdf_editor.models.message_type import MessageType
 from pdf_editor.services.file_backup import FileBackupService
 from pdf_editor.services.dialog_manager import DialogManager
 from pdf_editor.services.pdf_editor import PDFEditor
-from pdf_editor.sanitize_input import sanitize_input
 from pdf_editor.utils.configure_app_paths import configure_app_paths
+from pdf_editor.utils.sanitize_input import sanitize_input
 
 
 if __name__ == "__main__":
