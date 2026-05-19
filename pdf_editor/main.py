@@ -5,9 +5,11 @@ from pdf_editor.services.file_backup import FileBackupService
 from pdf_editor.services.dialog_manager import DialogManager
 from pdf_editor.services.pdf_editor import PDFEditor
 from pdf_editor.sanitize_input import sanitize_input
+from pdf_editor.utils.configure_app_paths import configure_app_paths
 
 
 if __name__ == "__main__":
+    configure_app_paths()
     load_dotenv()
 
     file_backup_service = None
@@ -31,6 +33,7 @@ if __name__ == "__main__":
         file_backup_service.create()
         pdf_editor.run()
         file_backup_service.remove()
+        FileBackupService.remove_file(pages_replacement_file_path)
 
         dialog_manager.show_message(message_type=MessageType.SUCCESS, message="Сторінки замінено")
     except Exception as exception:
