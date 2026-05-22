@@ -28,7 +28,7 @@ class PDFEditor:
         self._dialog_manager = dialog_manager
 
     @property
-    def document_path(self) -> str:
+    def document_path(self) -> Path:
         document_name = f"{self._document_type} - {self._folder_name}.pdf"
 
         return self._folder_path / document_name
