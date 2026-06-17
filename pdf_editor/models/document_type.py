@@ -11,5 +11,5 @@ class DocumentType(StrEnum):
 document_max_pages = {
     DocumentType.PASSPORT: 9,
     DocumentType.MILITARY_TICKET: 17,
-    DocumentType.OFFICER_CARD: 10,
+    DocumentType.OFFICER_CARD: 11,
 }

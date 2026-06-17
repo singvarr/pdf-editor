@@ -2,6 +2,7 @@ import sys
 import os
 
 from pdf_editor.models.pages_replacement_input import PagesReplacementInput
+from pdf_editor.models.document_type import DocumentType
 
 
 REQUIRED_CLI_ARGS_COUNT = 3
@@ -15,6 +16,11 @@ def sanitize_input() -> PagesReplacementInput:
         page_numbers_to_replace = [int(page.strip()) for page in pages_input.split(';')]
     except Exception:
         raise Exception(f'Failed to parse page numbers')
+    
+    try:
+        document_type = sys.argv[3]
+    except IndexError:
+        document_type = DocumentType.MILITARY_TICKET
 
     person_with_tin = sys.argv[2]
 
@@ -25,6 +31,7 @@ def sanitize_input() -> PagesReplacementInput:
 
     return PagesReplacementInput(
         assets_path=assets_path,
+        document_type=document_type,
         page_numbers_to_replace=page_numbers_to_replace,
         person_with_tin=person_with_tin,
     )
