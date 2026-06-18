@@ -24,7 +24,7 @@
 2. Створити 3 колонки у excel: в першій - перелік сторінок через крапку с комою, які потрібно замінити, в другій - гіперпосилання, в третій - тип операції (заміна чи вставка сторінок). Важливо, щоб гіперпосилання вказувало на свою ж клітинку.
 3. Додати макрос, який буде обробляти подвійний клік по посиланню (див. приклад коду внизу)
 
-```vba
+```vb
 ' На листі, де знаходиться сама таблиця
 Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
     ReplacePages Target, HERE_SHOULD_BE_LINK_COLUMN, HERE_SHOULD_BE_FOLDER_PATH, HERE_SHOULD_BE_PAGES_COLUMN
@@ -44,7 +44,7 @@ Public Sub ReplacePages(ByVal Target As Range, linkColumn As Integer, folderPath
     exePath = ThisWorkbook.Path & "\pdf_editor.exe"
 
     If Dir(exePath) = "" Then
-        MsgBox "Файл pdf_editor.exe не знайдено у папці:     " & ThisWorkbook.Path, vbCritical, "Помилка"
+        MsgBox "Файл pdf_editor.exe не знайдено у папці: " & ThisWorkbook.Path, vbCritical, "Помилка"
         Exit Sub
     End If
 
