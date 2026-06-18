@@ -18,14 +18,14 @@ if __name__ == "__main__":
     try:
         sanitized_input = sanitize_input()
 
-        pages_replacement_file_path = dialog_manager.show_replacement_file_selection()
+        document_edit_input = dialog_manager.show_replacement_file_selection()
 
-        if not pages_replacement_file_path:
+        if not document_edit_input:
             raise Exception('Replacement file is not selected')
 
         pdf_editor = PDFEditor(
-            pages_replacement_file_path=pages_replacement_file_path,
-            pages_replacement_input=sanitized_input,
+            pages_edit_file_path=document_edit_input,
+            edit_document_input=sanitized_input,
             dialog_manager=dialog_manager,
         )
         file_backup_service = FileBackupService(file_path=pdf_editor.document_path)
@@ -33,7 +33,7 @@ if __name__ == "__main__":
         file_backup_service.create()
         pdf_editor.run()
         file_backup_service.remove()
-        FileBackupService.remove_file(pages_replacement_file_path)
+        FileBackupService.remove_file(document_edit_input)
 
         dialog_manager.show_message(message_type=MessageType.SUCCESS, message="Сторінки замінено")
     except Exception as exception:

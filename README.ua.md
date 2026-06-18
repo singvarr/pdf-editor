@@ -21,7 +21,7 @@
 Ось покрокова інструкція:
 
 1. Сбілдити застосунок у єдиний `.exe` файл (див. [скрипт](./build.bat))
-2. Створити 2 колонки у excel: в першій - перелік сторінок через крапку с комою, які потрібно замінити, в другій - гіперпосилання. Важливо, щоб гіперпосилання вказувало на свою ж клітинк.
+2. Створити 3 колонки у excel: в першій - перелік сторінок через крапку с комою, які потрібно замінити, в другій - гіперпосилання, в третій - тип операції (заміна чи вставка сторінок). Важливо, щоб гіперпосилання вказувало на свою ж клітинку.
 3. Додати макрос, який буде обробляти подвійний клік по посиланню (див. приклад коду внизу)
 
 ```vba
@@ -31,7 +31,7 @@ Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean
 End Sub
 
 ' Для запуску скрипта
-Public Sub ReplacePages(ByVal Target As Range, linkColumn As Integer, folderPath As String, pagesColumn As Integer)
+Public Sub ReplacePages(ByVal Target As Range, linkColumn As Integer, folderPath As String, pagesColumn As Integer, editType as String)
     If Target.Column <> linkColumn Then Exit Sub
     If Target.Value = "" Then Exit Sub
 
@@ -44,7 +44,7 @@ Public Sub ReplacePages(ByVal Target As Range, linkColumn As Integer, folderPath
     exePath = ThisWorkbook.Path & "\pdf_editor.exe"
 
     If Dir(exePath) = "" Then
-        MsgBox "Файл pdf_editor.exe не знайдено у папці: " & ThisWorkbook.Path, vbCritical, "Помилка"
+        MsgBox "Файл pdf_editor.exe не знайдено у папці:     " & ThisWorkbook.Path, vbCritical, "Помилка"
         Exit Sub
     End If
 
@@ -54,7 +54,7 @@ Public Sub ReplacePages(ByVal Target As Range, linkColumn As Integer, folderPath
 
     If pages = "" Then Exit Sub
 
-    shellCommand = """" & exePath & """ """ & pages & """ """ & folderPath & """"
+    shellCommand = """" & exePath & """ """ & pages & """ """ & folderPath & """ """ & editType """"
 
     Shell shellCommand, vbNormalFocus
 End Sub
@@ -66,7 +66,7 @@ End Sub
 
 1. Встановити vitrual environment та залежності за допомогою команди `pip install -r requirements.txt`
 2. Створити `.env` файл за [прикладом](./.env-template)
-3. Запустити додаток `python -m pdf_editor.main {{CLI ARGUMENTS}}`. Додаток потребує 2 CLI-аргументів при запуску: 1. рядок з номерами сторінок розділених комою (наприклад, `1,2`), які треба замінити та 2. назву папки, де зберігається документ.
+3. Запустити додаток `python -m pdf_editor.main {{CLI ARGUMENTS}}`. Див. список cli-аргументів у [файлі](./pdf_editor/utils/sanitize_input.py)
 
 ## Roadmap
 
@@ -74,7 +74,7 @@ End Sub
 
 - [ ] Розхардкодити логіку побудови шляху до папки з документом.
 - [x] Додати можливість прокидувати тип документа через CLI-аргумент.
-- [ ] Додати можливість додавати нові сторінки до документа.
+- [x] Додати можливість додавати нові сторінки до документа.
 
 ### Нефункціональні
 
