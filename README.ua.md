@@ -27,7 +27,7 @@
 ```vb
 ' На листі, де знаходиться сама таблиця
 Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
-    ReplacePages Target, HERE_SHOULD_BE_LINK_COLUMN, HERE_SHOULD_BE_FOLDER_PATH, HERE_SHOULD_BE_PAGES_COLUMN
+    ReplacePages Target, HERE_SHOULD_BE_LINK_COLUMN, HERE_SHOULD_BE_FOLDER_PATH, HERE_SHOULD_BE_PAGES_COLUMN, HERE_SHOULD_BE_EDIT_TYPE
 End Sub
 
 ' Для запуску скрипта
