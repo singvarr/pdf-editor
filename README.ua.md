@@ -65,7 +65,7 @@ End Sub
 Додаток написаний на python 3.14, але має бути сумісний з більш ранніми версіями python.
 
 1. Встановити vitrual environment та залежності за допомогою команди `pip install -r requirements.txt`
-2. Створити `.env` файл за [прикладом](./.env-template)
+2. Створити `.env` файл за [прикладом](./env-template)
 3. Запустити додаток `python -m pdf_editor.main {{CLI ARGUMENTS}}`. Див. список cli-аргументів у [файлі](./pdf_editor/utils/sanitize_input.py)
 
 ## Roadmap
